@@ -1,30 +1,35 @@
 <script>
-	export let name;
+	import { Router, Route } from "svelte-routing";
+	import Navbar from "@/components/navbar.svelte";
+	import Home from "@/pages/home";
+	import Detail from "@/pages/detail";
+	import MyPokemons from "@/pages/my-pokemons";
+	export let url = "";
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
-
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
+	:global(ul) {
+		list-style-type: none;
+    padding: 0;
+	}
+	:global(main) {
+		max-width: 500px;
 		margin: 0 auto;
 	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
+	:global(a) {
+		cursor: pointer;
 	}
 </style>
+
+<Router url="{url}">
+  <div>
+		<Navbar />
+		<main>
+			<Route path="my-pokes" component="{MyPokemons}" />
+			<Route path="detail/:name" let:params>
+				<Detail name="{params.name}" />
+			</Route>
+			<Route path="/"><Home /></Route>
+		</main>
+  </div>
+</Router>

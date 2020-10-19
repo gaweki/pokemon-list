@@ -3,6 +3,13 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import alias from "@rollup/plugin-alias";
+import replace from '@rollup/plugin-replace';
+import { config as configDotenv } from 'dotenv';
+
+import path from "path";
+
+configDotenv();
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -36,7 +43,15 @@ export default {
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+		replace({
+      __apps__: JSON.stringify({
+        env: {
+					basePokeAPI: process.env.BASE_POKEAPI
+        }
+      }),
+    }),
 		svelte({
+			hydratable: true,
 			// enable run-time checks when not in production
 			dev: !production,
 			// we'll extract any component CSS out into
@@ -67,7 +82,15 @@ export default {
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
-		production && terser()
+		production && terser(),
+		alias({
+			entries: [
+				{
+					find: "@",
+					replacement: path.resolve(__dirname, "src/")
+				}
+			]
+		})
 	],
 	watch: {
 		clearScreen: false
