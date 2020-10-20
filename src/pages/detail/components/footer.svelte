@@ -1,6 +1,5 @@
 <script>
   import Modal from "@/pages/detail/components/modal.svelte"
-  import detail from "@/store/detail/detail";
   import modal from "@/store/detail/modal";
   import { onMount } from "svelte";
 
@@ -18,9 +17,6 @@
 
     modal.setShowModal(isCaught)
     showModal = isCaught
-
-    let objDetail = {}
-    detail.subscribe( val => objDetail = val)
   }
 </script>
 

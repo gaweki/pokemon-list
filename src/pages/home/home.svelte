@@ -28,8 +28,7 @@
       fetch(`${__apps__.env.basePokeAPI}pokemon?offset=0&limit=${resPerPage}`)
         .then(response => response.json())
         .then(data => {
-          const { next, previous, count, results } = data
-
+          const { count, results } = data
 
           datas = {
             ...datas,
@@ -69,7 +68,7 @@
       fetch(`${__apps__.env.basePokeAPI}pokemon?offset=${page*resPerPage}&limit=${resPerPage}`)
         .then(response => response.json())
         .then(data => {
-          const { next, previous, count, results } = data
+          const { results } = data
 
           datas = {
             ...datas,

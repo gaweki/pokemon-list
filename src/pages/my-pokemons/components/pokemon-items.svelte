@@ -14,7 +14,7 @@
 </script>
 
 <ul>
-  {#each datas as {newName, id, basePoke, detail}}
-    <PokemonItem name={newName} {id} {basePoke} {detail}/>
+  {#each datas as {newName, id, detail}}
+    <PokemonItem name={newName} {id} {detail }/>
   {/each}
 </ul>

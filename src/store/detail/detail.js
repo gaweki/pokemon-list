@@ -6,7 +6,7 @@ const DEFAULT_DATA = {
 
 const { subscribe, set, update } = writable(DEFAULT_DATA);
 
-const setCurrentDetailPoke = newDetail => update(detail => {
+const setCurrentDetailPoke = newDetail => update( () => {
     return newDetail;
 });
 

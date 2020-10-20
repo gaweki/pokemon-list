@@ -6,7 +6,7 @@ const DEFAULT_DATA = {
 
 const { subscribe, set, update } = writable(DEFAULT_DATA);
 
-const setShowModal = newModal => update(modal => {
+const setShowModal = newModal => update( () => {
     return newModal;
 });
 

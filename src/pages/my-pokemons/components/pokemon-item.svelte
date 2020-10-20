@@ -1,8 +1,7 @@
 <script>
-  import { Link } from "svelte-routing";
   import myPokemon from "@/store/detail/my-pokemon"
   import Items from "@/components/items.svelte"
-  export let name, id, basePoke, detail;
+  export let name, id, detail;
 
   let showDetail = false
   function handleRelease() {
