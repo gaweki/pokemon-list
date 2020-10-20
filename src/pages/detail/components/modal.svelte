@@ -2,8 +2,12 @@
   import detail from "@/store/detail/detail";
   import modal from "@/store/detail/modal";
   import myPokemon from "@/store/detail/my-pokemon"
+
+  export let isCaught
   let newName = ""
   let currentDetail = {}
+  let textAlert = ""
+  let disabledInput = false
 
   detail.subscribe( val => currentDetail = val)
   const { name } = currentDetail
@@ -18,11 +22,20 @@
       id: pokemons.length + 1
     }
     myPokemon.addPoke(addNewObj)
+    textAlert = "Success!"
+    disabledInput = true
+    setTimeout(() => {
+      modal.setShowModal(false)
+      textAlert = ""
+    }, 2000); 
+  }
+
+  function handleCloseModal(){
     modal.setShowModal(false)
   }
 
-  function handleOverLay(){
-    modal.setShowModal(false)
+  function handleKeyInput(e){
+    return e.keyCode === 13 ? handleSubmit() : ""
   }
 </script>
 
@@ -34,6 +47,7 @@
     height: 100vh;
     left: 0;
     top: 0;
+    cursor: pointer;
   }
   .outbox-modal{
     width: 100%;
@@ -64,18 +78,41 @@
   }
   button{
     cursor: pointer;
+    border-radius: 5px;
+  }
+  input{
+    border-radius: 5px;
+  }
+  .text-alert{
+    height: 35px;
+  }
+  .btn-close{
+    position: absolute;
+    right: 19px;
+    top: 10px;
+    font-weight: 700;
+    cursor: pointer;
   }
 </style>
 
 <div class="outbox-modal">
-  <div class="overlay" on:click={handleOverLay}>
+  <div class="overlay" on:click={handleCloseModal}>
   </div>
   <div class="container-modal">
+    <span class="btn-close" on:click={handleCloseModal}>x</span>
+    {#if isCaught}
     <div class="container-body">
       <h3>You get {name}</h3>
       <div>Submit for save this</div>
-      <input type="text" placeholder="Input New Name" bind:value={newName}>
-      <button type="button" on:click={handleSubmit}>Submit</button>
+      <input type="text" disabled={disabledInput} on:keydown={handleKeyInput} placeholder="Input New Nickname" bind:value={newName}>
+      <button type="button" disabled={disabledInput} on:click={handleSubmit}>Submit</button>
+      <div class="text-alert">{textAlert}</div>
     </div>
+    {:else}
+    <div class="container-body">
+      Retry To Get {name}
+    </div>
+    {/if}
+    
   </div>
 </div>

@@ -5,6 +5,7 @@
 
   export let name;
   let showModal = false
+  let isCaught
 
   onMount(() => {
     modal.subscribe( val => showModal = val.modal)
@@ -13,10 +14,10 @@
   $: document.body.classList.toggle('overflow-hidden', showModal)
 
   function handleCaught(){
-    let isCaught = Math.random() >= 0.5
+    isCaught = Math.random() >= 0.5
 
-    modal.setShowModal(isCaught)
-    showModal = isCaught
+    modal.setShowModal(true)
+    showModal = true
   }
 </script>
 
@@ -43,5 +44,5 @@
   <button on:click={handleCaught}>Caught This {name}!</button>
 </div>
 {#if showModal}
-  <Modal />
+  <Modal {isCaught} />
 {/if}
