@@ -1,3 +1,30 @@
+<script>
+  import Modal from "@/pages/detail/components/modal.svelte"
+  import detail from "@/store/detail/detail";
+  import modal from "@/store/detail/modal";
+  import { onMount } from "svelte";
+
+  export let name;
+  let showModal = false
+
+  onMount(() => {
+    modal.subscribe( val => showModal = val.modal)
+  })
+
+  $: document.body.classList.toggle('overflow-hidden', showModal)
+
+  function handleCaught(){
+    let isCaught = Math.random() >= 0.5
+
+    modal.setShowModal(isCaught)
+    showModal = isCaught
+
+    let objDetail = {}
+    detail.subscribe( val => objDetail = val)
+    console.log(objDetail)
+  }
+</script>
+
 <style>
   .footer-container{
     position: fixed;
@@ -18,5 +45,8 @@
   }
 </style>
 <div class="footer-container">
-  <button on:click="">Get A Pokemon!</button>
+  <button on:click={handleCaught}>Caught This {name}!</button>
 </div>
+{#if showModal}
+  <Modal />
+{/if}

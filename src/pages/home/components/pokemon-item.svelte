@@ -9,6 +9,8 @@
     font-weight: 700;
     display: block;
     padding: 7px 0 7px 0;
+  }
+  li{
     border-bottom: 1px solid #dedede;
   }
 </style>

@@ -4,7 +4,7 @@
 </script>
 
 <ul>
-  {#each datas as data }
+  {#each datas as data, i }
     <Item name={type === "moves" ? data.move.name : data.type.name} />
   {/each}
 </ul>

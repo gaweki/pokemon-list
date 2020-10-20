@@ -19,6 +19,12 @@
 	:global(a) {
 		cursor: pointer;
 	}
+	:global(ul > li:last-child) {
+		border-bottom: none;
+	}
+	:global(.overflow-hidden) {
+		overflow: hidden;
+	}
 </style>
 
 <Router url="{url}">
