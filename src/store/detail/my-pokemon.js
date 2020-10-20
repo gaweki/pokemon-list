@@ -6,7 +6,7 @@ const DEFAULT_DATA = [];
 // subscribe    -> must be exported, will discuss it in future article
 // set          -> allows you to set a value to store
 // update       -> receives a current store value as input and returns a new one.
-const { subscribe, set, update } = writable(JSON.parse(localStorage.getItem("pokemon_my_list")) || DEFAULT_DATA);
+const { subscribe, set, update } = writable(localStorage.getItem("pokemon_my_list") ? JSON.parse(localStorage.getItem("pokemon_my_list")) : DEFAULT_DATA);
 
 const addPoke = newPoke => update(pokemon => {
     localStorage.setItem("pokemon_my_list", JSON.stringify([...pokemon, newPoke]))
