@@ -21,7 +21,6 @@
 
     let objDetail = {}
     detail.subscribe( val => objDetail = val)
-    console.log(objDetail)
   }
 </script>
 
