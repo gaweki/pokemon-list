@@ -32,8 +32,8 @@
 		<Navbar />
 		<main>
 			<Route path="my-pokes" component="{MyPokemons}" />
-			<Route path="detail/:name/:basePoke" let:params>
-				<Detail name="{params.name}" basePoke="{params.basePoke}" />
+			<Route path="detail/:name" let:params>
+				<Detail name="{params.name}" />
 			</Route>
 			<Route path="/"><Home /></Route>
 		</main>
