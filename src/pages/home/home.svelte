@@ -110,9 +110,9 @@
   {#each arrPage as seq}
     <PokemonItems datas={datas["datas"+seq]} />
   {/each}
-  {#if currentTotalResults <= totalResources}
+  {#if !loadingGlobal && currentTotalResults <= totalResources }
     <div class="container-load-more">
-      <button on:click={handleLookMore}>{loadingGlobal ? "Loading" : "Load More"}</button>
+      <button on:click={handleLookMore}>Load More</button>
     </div>
   {/if}
 </ul>
