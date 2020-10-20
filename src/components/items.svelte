@@ -1,5 +1,5 @@
 <script>
-  import Item from "@/pages/detail/components/item.svelte";
+  import Item from "./item.svelte";
   export let datas, type 
 </script>
 

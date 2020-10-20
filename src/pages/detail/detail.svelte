@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import detail from "@/store/detail/detail"
-  import Items from "@/pages/detail/components/items.svelte"
+  import Items from "@/components/items.svelte"
   import Footer from "@/pages/detail/components/footer.svelte"
   import { capitalizeFirstLetter } from "@/helpers"
   export let name = capitalizeFirstLetter(name)
