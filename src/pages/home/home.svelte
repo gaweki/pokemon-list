@@ -13,6 +13,9 @@
     };
   let loadingGlobal = true;
   let arrPage = []
+  let resPerPage = 30
+  let currentTotalResults = 0
+  let totalResources = 0
 
   onMount(async () => {
     loading = {
@@ -22,10 +25,11 @@
     arrPage.push(page)
     
     try{
-      fetch(`${__apps__.env.basePokeAPI}pokemon?offset=0&limit=10`)
+      fetch(`${__apps__.env.basePokeAPI}pokemon?offset=0&limit=${resPerPage}`)
         .then(response => response.json())
         .then(data => {
           const { next, previous, count, results } = data
+
 
           datas = {
             ...datas,
@@ -37,6 +41,8 @@
           }
           loadingGlobal = false
 
+          totalResources = count
+          currentTotalResults = resPerPage
         })
         .catch(err => console.log(err))
 
@@ -60,20 +66,22 @@
     loadingGlobal = true
 
     try{
-      fetch(`${__apps__.env.basePokeAPI}pokemon?offset=${nPage*10}&limit=10`)
+      fetch(`${__apps__.env.basePokeAPI}pokemon?offset=${page*resPerPage}&limit=${resPerPage}`)
         .then(response => response.json())
         .then(data => {
           const { next, previous, count, results } = data
 
           datas = {
-          ...datas,
-          ["datas"+nPage]: [...results]
-        }
-        loading = {
-          ...loading,
-          ["loading"+nPage]: false
-        }
-        loadingGlobal = false
+            ...datas,
+            ["datas"+nPage]: [...results]
+          }
+          loading = {
+            ...loading,
+            ["loading"+nPage]: false
+          }
+          loadingGlobal = false
+
+          currentTotalResults = currentTotalResults + resPerPage
 
         })
         .catch(err => console.log(err))
@@ -103,9 +111,9 @@
   {#each arrPage as seq}
     <PokemonItems datas={datas["datas"+seq]} />
   {/each}
-  {#if !loadingGlobal}
-  <div class="container-load-more">
-    <button on:click={handleLookMore}>Load More</button>
-  </div>
+  {#if currentTotalResults <= totalResources}
+    <div class="container-load-more">
+      <button on:click={handleLookMore}>{loadingGlobal ? "Loading" : "Load More"}</button>
+    </div>
   {/if}
 </ul>
