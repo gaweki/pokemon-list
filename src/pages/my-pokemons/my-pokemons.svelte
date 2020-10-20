@@ -5,6 +5,12 @@
 <script>
   import PokemonItems from "@/pages/my-pokemons/components/pokemon-items.svelte";
   import myPokemon from "@/store/detail/my-pokemon";
+  import { onMount } from "svelte";
+
+  let lengthMyPokemon = 0
+  onMount(() => {
+    myPokemon.subscribe( val => lengthMyPokemon = val.length)
+  })
 
   function handleDeleteAll() {
     myPokemon.reset()
@@ -25,11 +31,21 @@
     padding: 3px 7px;
     border-radius: 5px;
   }
+  h4{
+    text-align: center;
+  }
 </style>
 
 <ul>
   <div class="container-title">
-    <h1>List All My Pokemon </h1> <span class="btn-delete-all" on:click={handleDeleteAll}>Delete All</span>
+    <h1>List All My Pokemon </h1> 
+    {#if lengthMyPokemon}
+      <span class="btn-delete-all" on:click={handleDeleteAll}>Delete All</span>
+    {/if} 
   </div>
-  <PokemonItems />
+  {#if lengthMyPokemon}
+    <PokemonItems />
+  {:else}
+    <h4>Caught one!</h4>
+  {/if} 
 </ul>
