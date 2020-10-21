@@ -7,10 +7,12 @@
 	export let url = "";
 </script>
 
-<style>
+<style global>
+  @import "normalize.css";
+	
 	:global(ul) {
 		list-style-type: none;
-    padding: 0;
+		padding: 0;
 	}
 	:global(main) {
 		max-width: 500px;

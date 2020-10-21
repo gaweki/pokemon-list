@@ -6,6 +6,7 @@ import { terser } from 'rollup-plugin-terser';
 import alias from "@rollup/plugin-alias";
 import replace from '@rollup/plugin-replace';
 import { config as configDotenv } from 'dotenv';
+import sveltePreprocess from 'svelte-preprocess';
 
 import path from "path";
 
@@ -58,7 +59,8 @@ export default {
 			// a separate file - better for performance
 			css: css => {
 				css.write('bundle.css');
-			}
+			},
+			preprocess: sveltePreprocess({ postcss: true })
 		}),
 
 		// If you have external dependencies installed from
