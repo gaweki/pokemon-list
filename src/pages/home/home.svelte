@@ -102,6 +102,7 @@
   .container-load-more{
     margin-top: 20px;
     text-align: center;
+    height: 32.78px;
   }
 </style>
 
@@ -110,9 +111,9 @@
   {#each arrPage as seq}
     <PokemonItems datas={datas["datas"+seq]} />
   {/each}
-  {#if !loadingGlobal && currentTotalResults <= totalResources }
-    <div class="container-load-more">
+  <div class="container-load-more">
+    {#if !loadingGlobal && currentTotalResults <= totalResources }
       <button on:click={handleLookMore}>Load More</button>
-    </div>
-  {/if}
+    {/if}
+  </div>
 </ul>
