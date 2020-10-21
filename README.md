@@ -1,3 +1,8 @@
+Access on:
+1.  https://pokemon-list-gaweki.netlify.app
+2.  https://pokemon-list-delta.vercel.app/
+
+
 If your browser show "Site can't reached" please follow this steps:
 
 
