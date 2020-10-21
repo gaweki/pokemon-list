@@ -33,7 +33,7 @@
 
 <style>
   ul{
-    padding-bottom: 22px;
+    padding-bottom: 35px;
   }
   .image-container{
     text-align: center;
