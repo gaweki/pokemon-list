@@ -13,7 +13,7 @@
 
   $: document.body.classList.toggle('overflow-hidden', showModal)
 
-  function handleCaught(){
+  function handleCatch(){
     isCaught = Math.random() >= 0.5
 
     modal.setShowModal(true)
@@ -41,7 +41,7 @@
   }
 </style>
 <div class="footer-container">
-  <button on:click={handleCaught}>Caught This {name}!</button>
+  <button on:click={handleCatch}>Catch This {name}!</button>
 </div>
 {#if showModal}
   <Modal {isCaught} />

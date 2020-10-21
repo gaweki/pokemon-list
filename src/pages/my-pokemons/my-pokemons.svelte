@@ -46,6 +46,6 @@
   {#if lengthMyPokemon}
     <PokemonItems />
   {:else}
-    <h4>Caught one!</h4>
+    <h4>Catch one!</h4>
   {/if} 
 </ul>
