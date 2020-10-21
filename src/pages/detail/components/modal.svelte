@@ -13,21 +13,30 @@
   const { name } = currentDetail
 
   function handleSubmit(){
-    let pokemons = []
-    myPokemon.subscribe(val => pokemons = val)
-    let addNewObj = {
-      basePoke: name,
-      detail: currentDetail.detail,
-      newName,
-      id: pokemons.length + 1
+    if(newName){
+      let pokemons = []
+      myPokemon.subscribe(val => pokemons = val)
+      let addNewObj = {
+        basePoke: name,
+        detail: currentDetail.detail,
+        newName,
+        id: pokemons.length + 1
+      }
+      myPokemon.addPoke(addNewObj)
+      textAlert = "Success!"
+      disabledInput = true
+      setTimeout(() => {
+        modal.setShowModal(false)
+        textAlert = ""
+      }, 2000); 
+    } else {
+      textAlert = "Nickname must filled"
+      disabledInput = true
+      setTimeout(() => {
+        disabledInput = false
+        textAlert = ""
+      }, 2000); 
     }
-    myPokemon.addPoke(addNewObj)
-    textAlert = "Success!"
-    disabledInput = true
-    setTimeout(() => {
-      modal.setShowModal(false)
-      textAlert = ""
-    }, 2000); 
   }
 
   function handleCloseModal(){
@@ -65,7 +74,7 @@
     background-color: white;
     width: 100%;
     max-width: 290px;
-    height: 200px;
+    height: 225px;
     border-radius: 14px;
     display: flex;
     justify-content: center;
