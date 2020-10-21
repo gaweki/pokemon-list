@@ -91,6 +91,7 @@
   }
   input{
     border-radius: 5px;
+    width: 32.78px;
   }
   .text-alert{
     height: 35px;
