@@ -30,6 +30,7 @@
     cursor: pointer;
     padding: 3px 7px;
     border-radius: 5px;
+    text-align: center;
   }
   h4{
     text-align: center;
