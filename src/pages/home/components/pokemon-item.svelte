@@ -1,5 +1,5 @@
 <script>
-	import { Link } from "svelte-routing";
+	import { link, Router } from "svelte-routing";
   export let name;
 </script>
 
@@ -15,8 +15,10 @@
   }
 </style>
 
-<li>
-  <Link to={`/detail/${name}`}>
-    <span class="text-name">{name}</span>
-  </Link>
-</li>
+<Router url="">
+  <li>
+    <a href={`/detail/${name}`} use:link >
+      <span class="text-name">{name}</span>
+    </a>
+  </li>
+</Router>
