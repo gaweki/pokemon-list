@@ -28,10 +28,10 @@
   }
 </style>
 
-<div class="container-navbar">
+<nav class="container-navbar">
   <div>
     <span class="link-page"><Link to="/">Home</Link></span>
     <span class="link-page"><Link to="/my-pokes">My Pokemon List<span class="text-total-extra">(total: {lengthMyPokemon})</span></Link></span>
   </div>
   <div class="text-total">Pokemon have been caught: {lengthMyPokemon}</div>
-</div>
+</nav>
