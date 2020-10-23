@@ -114,8 +114,8 @@
     <div class="container-body">
       <h3>You get {name}</h3>
       <div>Submit for save this</div>
-      <input type="text" disabled={disabledInput} on:keydown={handleKeyInput} placeholder="Input New Nickname" bind:value={newName}>
-      <button type="button" disabled={disabledInput || !newName} on:click={handleSave}>Submit</button>
+      <input type="text" disabled={disabledInput} on:keydown={handleKeyInput} aria-label="nickname-input" placeholder="Input New Nickname" bind:value={newName}>
+      <button aria-label="submit-button" type="button" disabled={disabledInput || !newName} on:click={handleSave}>Submit</button>
       <div class="text-alert">{textAlert}</div>
     </div>
     {:else}
