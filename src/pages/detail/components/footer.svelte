@@ -2,6 +2,7 @@
   import Modal from "@/pages/detail/components/modal.svelte"
   import modal from "@/store/detail/modal";
   import { onMount } from "svelte";
+  import { getFiftyPercentPossiblity } from "@/helpers";
 
   export let name;
   let showModal = false
@@ -14,7 +15,7 @@
   $: document.body.classList.toggle('overflow-hidden', showModal)
 
   function handleCatch(){
-    isCaught = Math.random() >= 0.5
+    isCaught = getFiftyPercentPossiblity()
 
     modal.setShowModal(true)
     showModal = true
