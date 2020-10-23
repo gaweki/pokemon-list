@@ -1,7 +1,7 @@
 import { render, waitFor } from "@testing-library/svelte";
 import Detail from "../detail.svelte";
 
-describe("Detail page", () => {
+describe("Detail rendering testing", () => {
 
   test(`Should load detail (without fetch)`, async () => {
     
