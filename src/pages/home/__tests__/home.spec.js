@@ -1,22 +1,38 @@
-import { render } from "@testing-library/svelte";
+import { render, waitFor, fireEvent, screen, cleanup } from "@testing-library/svelte";
 import Home from "../home.svelte";
 import { handleFetch } from '../../../helpers';
+import { sampleResPageOne } from '../../../constants';
 
-let sample = {"count":1050,"next":"https://pokeapi.co/api/v2/pokemon?offset=30&limit=30","previous":null,"results":[{"name":"bulbasaur","url":"https://pokeapi.co/api/v2/pokemon/1/"},{"name":"ivysaur","url":"https://pokeapi.co/api/v2/pokemon/2/"},{"name":"venusaur","url":"https://pokeapi.co/api/v2/pokemon/3/"},{"name":"charmander","url":"https://pokeapi.co/api/v2/pokemon/4/"},{"name":"charmeleon","url":"https://pokeapi.co/api/v2/pokemon/5/"},{"name":"charizard","url":"https://pokeapi.co/api/v2/pokemon/6/"},{"name":"squirtle","url":"https://pokeapi.co/api/v2/pokemon/7/"},{"name":"wartortle","url":"https://pokeapi.co/api/v2/pokemon/8/"},{"name":"blastoise","url":"https://pokeapi.co/api/v2/pokemon/9/"},{"name":"caterpie","url":"https://pokeapi.co/api/v2/pokemon/10/"},{"name":"metapod","url":"https://pokeapi.co/api/v2/pokemon/11/"},{"name":"butterfree","url":"https://pokeapi.co/api/v2/pokemon/12/"},{"name":"weedle","url":"https://pokeapi.co/api/v2/pokemon/13/"},{"name":"kakuna","url":"https://pokeapi.co/api/v2/pokemon/14/"},{"name":"beedrill","url":"https://pokeapi.co/api/v2/pokemon/15/"},{"name":"pidgey","url":"https://pokeapi.co/api/v2/pokemon/16/"},{"name":"pidgeotto","url":"https://pokeapi.co/api/v2/pokemon/17/"},{"name":"pidgeot","url":"https://pokeapi.co/api/v2/pokemon/18/"},{"name":"rattata","url":"https://pokeapi.co/api/v2/pokemon/19/"},{"name":"raticate","url":"https://pokeapi.co/api/v2/pokemon/20/"},{"name":"spearow","url":"https://pokeapi.co/api/v2/pokemon/21/"},{"name":"fearow","url":"https://pokeapi.co/api/v2/pokemon/22/"},{"name":"ekans","url":"https://pokeapi.co/api/v2/pokemon/23/"},{"name":"arbok","url":"https://pokeapi.co/api/v2/pokemon/24/"},{"name":"pikachu","url":"https://pokeapi.co/api/v2/pokemon/25/"},{"name":"raichu","url":"https://pokeapi.co/api/v2/pokemon/26/"},{"name":"sandshrew","url":"https://pokeapi.co/api/v2/pokemon/27/"},{"name":"sandslash","url":"https://pokeapi.co/api/v2/pokemon/28/"},{"name":"nidoran-f","url":"https://pokeapi.co/api/v2/pokemon/29/"},{"name":"nidorina","url":"https://pokeapi.co/api/v2/pokemon/30/"}]}
+describe("Home rendering testing", () => {
 
-describe("Home component", () => {
+  test(`Should load page and can click a poke`, async () => {
+    cleanup()
+    const { getByText } = render(Home)
+    expect(getByText("List All Pokemon")).toBeInTheDocument()
+    const leftClick = { button: 0 };
+    await waitFor(() => expect(getByText("Load More")).toBeInTheDocument())
+    expect(getByText(/bulbasaur/i)).toBeInTheDocument()
+    expect(getByText(/venusaur/i)).toBeInTheDocument()
+    expect(getByText(/arbok/i)).toBeInTheDocument()
+    expect(getByText(/nidorina/i)).toBeInTheDocument()
+    const itemPoke = screen.getByText(/bulbasaur/i);
+    await fireEvent.click(itemPoke, leftClick);
+  })
+
+});
+
+describe("Home fetch testing", () => {
   const resPerPage = 30;
 
   test(`should handle mock fetch https://pokeapi.co/api/v2/pokemon?offset=0&limit=30 li correctly`, async () => {
     const hitPageOne = await handleFetch(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=${resPerPage}`);
 
-    expect(hitPageOne).toEqual(sample);
+    expect(hitPageOne).toEqual(sampleResPageOne);
   })
 
-
-  test(`should handle mock fetch https://pokeapi.co/api/v2/pokemon?offset=0&limit=30 correctly`, () => {
-    global.fetch = jest.fn(() => Promise.resolve({ json: () => ''}))
-    expect(handleFetch(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=${resPerPage}`)).resolves.toBe('');
+  test(`show all pokemon on first load`, () => {
+    global.fetch = jest.fn(() => Promise.resolve({ json: () => sampleResPageOne}))
+    expect(handleFetch(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=${resPerPage}`)).resolves.toBe(sampleResPageOne);
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch).toHaveBeenCalledWith(
       `https://pokeapi.co/api/v2/pokemon?offset=0&limit=${resPerPage}`
