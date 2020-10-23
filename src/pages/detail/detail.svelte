@@ -3,27 +3,27 @@
   import detail from "@/store/detail/detail"
   import Items from "@/components/items.svelte"
   import Footer from "@/pages/detail/components/footer.svelte"
-  import { capitalizeFirstLetter } from "@/helpers"
+  import { capitalizeFirstLetter, handleFetch } from "@/helpers"
   export let name = capitalizeFirstLetter(name)
   let moves = [] 
   let types = []
   let imgSrc = ""
   name = capitalizeFirstLetter(name)
   onMount(async () => {
-    fetch(`${__apps__.env.basePokeAPI}pokemon/${name.toLowerCase()}`)
-      .then(response => response.json())
-      .then(data => {
-        moves = data.moves
-        types = data.types
-        imgSrc= data.sprites.front_default
+    try{
+      const res = await handleFetch(`${__apps__.env.basePokeAPI}pokemon/${name.toLowerCase()}`)
+      moves = res.moves
+      types = res.types
+      imgSrc= res.sprites.front_default
 
-        let addCurrentDetail = {
-          name,
-          detail: data
-        }
-        detail.setCurrentDetailPoke(addCurrentDetail)
-      })
-      .catch(err => console.log(err))
+      let addCurrentDetail = {
+        name,
+        detail: res
+      }
+      detail.setCurrentDetailPoke(addCurrentDetail)
+    } catch (e) {
+      if(e) console.log(e)
+    }
   });
 </script>
 
