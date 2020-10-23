@@ -61,25 +61,20 @@
     loadingGlobal = true
 
     try{
-      fetch(`${__apps__.env.basePokeAPI}pokemon?offset=${page*resPerPage}&limit=${resPerPage}`)
-        .then(response => response.json())
-        .then(data => {
-          const { results } = data
+      const res = await handleFetch(`${__apps__.env.basePokeAPI}pokemon?offset=${page*resPerPage}&limit=${resPerPage}`)
+      const { results } = res
 
-          datas = {
-            ...datas,
-            ["datas"+nPage]: [...results]
-          }
-          loading = {
-            ...loading,
-            ["loading"+nPage]: false
-          }
-          loadingGlobal = false
+      datas = {
+        ...datas,
+        ["datas"+nPage]: [...results]
+      }
+      loading = {
+        ...loading,
+        ["loading"+nPage]: false
+      }
+      loadingGlobal = false
 
-          currentTotalResults = currentTotalResults + resPerPage
-
-        })
-        .catch(err => console.log(err))
+      currentTotalResults = currentTotalResults + resPerPage
 
     } catch(e){
       if(e) console.log(e)
