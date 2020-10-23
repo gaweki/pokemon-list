@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 
 module.exports = {
+  setupFiles: ['./jest.setup.js'],
   transform: {
     "^.+\\.svelte$": "jest-transform-svelte",
     "^.+\\.js$": "babel-jest"
