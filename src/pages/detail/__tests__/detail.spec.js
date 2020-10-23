@@ -37,7 +37,6 @@ describe("Detail action testing", () => {
     const btnCatch = screen.getByText(/catch.*bulbasaur/i);
     await fireEvent.click(btnCatch, leftClick);
     if (getFiftyPercentPossiblity()) {
-      const leftClick = { button: 0 };
       await waitFor(() => screen.getByText(/submit.*save/i))
       const submitInput = screen.getByLabelText('nickname-input')
       await fireEvent.change(submitInput, { target: { value: 'woowwwww' } })
