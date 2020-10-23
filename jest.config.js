@@ -18,6 +18,11 @@ module.exports = {
   transformIgnorePatterns: ["node_modules/(?!svelte-routing)(?!alias)"],
   setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
   "globals": {
-    "fetch": fetch
+    "fetch": fetch,
+    "__apps__": {
+      env: {
+        basePokeAPI: "https://pokeapi.co/api/v2/"
+      }
+    }
   }
 };
