@@ -5,6 +5,7 @@
 <script>
   import { onMount } from 'svelte';
   import PokemonItems from "@/pages/home/components/pokemon-items.svelte";
+  import { handleFetch } from '@/helpers';
 
   let page = 1;
   let datas = {};
@@ -25,25 +26,20 @@
     arrPage.push(page)
     
     try{
-      fetch(`${__apps__.env.basePokeAPI}pokemon?offset=0&limit=${resPerPage}`)
-        .then(response => response.json())
-        .then(data => {
-          const { count, results } = data
+      const res = await handleFetch(`${__apps__.env.basePokeAPI}pokemon?offset=0&limit=${resPerPage}`)
+      const { count, results } = res
+      datas = {
+        ...datas,
+        datas1: [...results]
+      }
+      loading = {
+        ...loading,
+        loading1: false
+      }
+      loadingGlobal = false
 
-          datas = {
-            ...datas,
-            datas1: [...results]
-          }
-          loading = {
-            ...loading,
-            loading1: false
-          }
-          loadingGlobal = false
-
-          totalResources = count
-          currentTotalResults = resPerPage
-        })
-        .catch(err => console.log(err))
+      totalResources = count
+      currentTotalResults = resPerPage
 
     } catch(e){
       if(e) console.log(e)
