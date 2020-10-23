@@ -1,4 +1,4 @@
-import { render, waitFor, fireEvent, screen, cleanup } from "@testing-library/svelte";
+import { render, waitFor, fireEvent, screen } from "@testing-library/svelte";
 import Home from "../home.svelte";
 import { handleFetch } from '../../../helpers';
 import { sampleResPageOne } from '../../../constants';
@@ -6,7 +6,6 @@ import { sampleResPageOne } from '../../../constants';
 describe("Home rendering testing", () => {
 
   test(`Should load page and can click a poke`, async () => {
-    cleanup()
     const { getByText } = render(Home)
     expect(getByText("List All Pokemon")).toBeInTheDocument()
     const leftClick = { button: 0 };
