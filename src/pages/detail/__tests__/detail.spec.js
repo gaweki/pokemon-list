@@ -3,21 +3,25 @@ import Detail from "../detail.svelte";
 
 import { getFiftyPercentPossiblity } from "../../../helpers";
 
+beforeEach(() => {
+  jest.spyOn(Math, 'random').mockReturnValue(0.9);
+});
+
 describe("Detail rendering testing", () => {
 
   test(`Should load detail`, async () => {
     
     let { getByText } = render(Detail, {
       props: {
-        name: "bulbasaur"
+        name: "caterpie"
       }
     })
-    expect(getByText(/catch.*bulbasaur/i)).toBeInTheDocument()
+    expect(getByText(/catch.*caterpie/i)).toBeInTheDocument()
     expect(getByText(/types/i)).toBeInTheDocument()
     expect(getByText(/moves/i)).toBeInTheDocument()
-    await waitFor(() => screen.getByText(/razor-wind/i))
-    expect(getByText(/string-shot/i)).toBeInTheDocument()
-    expect(getByText(/skull-bash/i)).toBeInTheDocument()
+    await waitFor(() => screen.getByText(/tackle/i), { timeout: 5000 })
+    expect(getByText(/snore/i)).toBeInTheDocument()
+    expect(getByText(/electroweb/i)).toBeInTheDocument()
     
   })
 });
@@ -28,13 +32,13 @@ describe("Detail action testing", () => {
     const leftClick = { button: 0 };
     let { getByText } = render(Detail, {
       props: {
-        name: "bulbasaur"
+        name: "caterpie"
       }
     })
 
-    await waitFor(() => screen.getByText(/razor-wind/i))
+    await waitFor(() => screen.getByText(/tackle/i), { timeout: 5000 })
 
-    const btnCatch = screen.getByText(/catch.*bulbasaur/i);
+    const btnCatch = screen.getByText(/catch.*caterpie/i);
     await fireEvent.click(btnCatch, leftClick);
     if (getFiftyPercentPossiblity()) {
       await waitFor(() => screen.getByText(/submit.*save/i))
