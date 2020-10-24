@@ -9,7 +9,7 @@ describe("Home rendering testing", () => {
     const { getByText } = render(Home)
     expect(getByText("List All Pokemon")).toBeInTheDocument()
     const leftClick = { button: 0 };
-    await waitFor(() => expect(getByText("Load More")).toBeInTheDocument())
+    await waitFor(() => expect(getByText("Load More")).toBeInTheDocument(), { timeout: 5000 })
     expect(getByText(/bulbasaur/i)).toBeInTheDocument()
     expect(getByText(/venusaur/i)).toBeInTheDocument()
     expect(getByText(/arbok/i)).toBeInTheDocument()
