@@ -1,13 +1,14 @@
-import { render, screen, waitFor, fireEvent } from "@testing-library/svelte";
+import { render, screen, waitFor, fireEvent, cleanup } from "@testing-library/svelte";
 import Items from "../components/pokemon-items.svelte";
 import { myPokemonData } from "../../../constants";
 import myPokemon from "../../../store/detail/my-pokemon"
 
 describe("Items component rendering", () => {
   
-  myPokemonData.forEach(val => myPokemon.addPoke(val))
   
   test("should render list li correctly", async () => {
+    myPokemonData.forEach(val => myPokemon.addPoke(val))
+
     let lengthMyPokemon = 0
     myPokemon.subscribe(val => lengthMyPokemon = val.length)
     expect(lengthMyPokemon).toBe(3)
@@ -17,16 +18,22 @@ describe("Items component rendering", () => {
     expect(getByText(/bulbasaur.*new.*one/i)).toBeInTheDocument()
     expect(getByText(/bulbasaur.*new.*three/i)).toBeInTheDocument()
     expect(screen.getAllByText(/release/i))
-
   });
 });
 
 
 describe("Items component actions", () => {
   
-  myPokemonData.forEach(val => myPokemon.addPoke(val))
-  
+  test("expect no data my pokemon on first show", async () => {
+    myPokemon.reset()
+    let lengthMyPokemon = 0
+    myPokemon.subscribe(val => lengthMyPokemon = val.length)
+    expect(lengthMyPokemon).toBe(0)
+  })
+    
   test("should open detail and can delete one my pokemon", async () => {
+    myPokemonData.forEach(val => myPokemon.addPoke(val))
+
     let lengthMyPokemon = 0
     myPokemon.subscribe(val => lengthMyPokemon = val.length)
     expect(lengthMyPokemon).toBe(3)
