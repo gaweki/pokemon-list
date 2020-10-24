@@ -1,11 +1,11 @@
 import { render } from "@testing-library/svelte";
-import Item from "../components/pokemon-items.svelte";
+import Items from "../components/pokemon-items.svelte";
 
 
 describe("Items component", () => {
   
   test("should render list li correctly", () => {
-    const { container } = render(Item, {
+    const { container } = render(Items, {
       props: {
         datas: [
           {
