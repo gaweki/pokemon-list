@@ -17,6 +17,7 @@
 	:global(main) {
 		max-width: 500px;
 		margin: 0 auto;
+		overflow: auto;
 	}
 	:global(a) {
 		cursor: pointer;
