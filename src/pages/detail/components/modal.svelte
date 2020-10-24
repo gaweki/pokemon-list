@@ -12,31 +12,31 @@
   detail.subscribe( val => currentDetail = val)
   const { name } = currentDetail
 
-  function handleSubmit(){
-    if(newName){
-      let pokemons = []
-      myPokemon.subscribe(val => pokemons = val)
-      let addNewObj = {
-        basePoke: name,
-        detail: currentDetail.detail,
-        newName,
-        id: pokemons.length + 1
-      }
-      myPokemon.addPoke(addNewObj)
-      textAlert = "Success!"
-      disabledInput = true
-      setTimeout(() => {
-        modal.setShowModal(false)
-        textAlert = ""
-      }, 2000); 
-    } else {
-      textAlert = "Nickname must filled"
-      disabledInput = true
-      setTimeout(() => {
-        disabledInput = false
-        textAlert = ""
-      }, 2000); 
+  function handleEmptySubmit(){
+    textAlert = "Nickname must filled"
+    disabledInput = true
+    setTimeout(() => {
+      disabledInput = false
+      textAlert = ""
+    }, 2000); 
+  }
+
+  function handleSave(){
+    let pokemons = []
+    myPokemon.subscribe(val => pokemons = val)
+    let addNewObj = {
+      basePoke: name,
+      detail: currentDetail.detail,
+      newName,
+      id: pokemons.length + 1
     }
+    myPokemon.addPoke(addNewObj)
+    textAlert = "Success!"
+    disabledInput = true
+    setTimeout(() => {
+      modal.setShowModal(false)
+      textAlert = ""
+    }, 2000); 
   }
 
   function handleCloseModal(){
@@ -44,7 +44,7 @@
   }
 
   function handleKeyInput(e){
-    return e.keyCode === 13 ? handleSubmit() : ""
+    return e.keyCode === 13 ? (newName ? handleSave() : handleEmptySubmit()) : ""
   }
 </script>
 
@@ -114,8 +114,8 @@
     <div class="container-body">
       <h3>You get {name}</h3>
       <div>Submit for save this</div>
-      <input type="text" disabled={disabledInput} on:keydown={handleKeyInput} placeholder="Input New Nickname" bind:value={newName}>
-      <button type="button" disabled={disabledInput} on:click={handleSubmit}>Submit</button>
+      <input type="text" disabled={disabledInput} on:keydown={handleKeyInput} aria-label="nickname-input" placeholder="Input New Nickname" bind:value={newName}>
+      <button aria-label="submit-button" type="button" disabled={disabledInput || !newName} on:click={handleSave}>Submit</button>
       <div class="text-alert">{textAlert}</div>
     </div>
     {:else}

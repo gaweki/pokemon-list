@@ -1,5 +1,5 @@
 <script>
-	import { Link } from "svelte-routing";
+	import { link, Router } from "svelte-routing";
   import myPokemon from "@/store/detail/my-pokemon"
   import { onMount } from "svelte";
   let lengthMyPokemon = 0
@@ -28,10 +28,12 @@
   }
 </style>
 
-<nav class="container-navbar">
-  <div>
-    <span class="link-page"><Link to="/">Home</Link></span>
-    <span class="link-page"><Link to="/my-pokes">My Pokemon List<span class="text-total-extra">(total: {lengthMyPokemon})</span></Link></span>
-  </div>
-  <div class="text-total">Pokemon have been caught: {lengthMyPokemon}</div>
-</nav>
+<Router url="">
+  <nav class="container-navbar">
+    <div>
+      <span class="link-page"><a href="/" use:link >Home</a></span>
+      <span class="link-page"><a href="/my-pokes" use:link>My Pokemon List<span class="text-total-extra">(total: {lengthMyPokemon})</span></a></span>
+    </div>
+    <div class="text-total">Pokemon have been caught: {lengthMyPokemon}</div>
+  </nav>
+</Router>
