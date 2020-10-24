@@ -36,6 +36,7 @@
     cursor: pointer;
     padding: 3px 7px;
     border-radius: 5px;
+    border: none;
   }
   .text-close{
     font-weight: 400;
@@ -53,7 +54,7 @@
 <li>
   <div class="container-list">
     <span on:click={handleDetail} class="text-name">{name} <span class="text-close">{showDetail ? "click again to close detail" : "click to show detail"}</span></span>
-    <span class="btn-release" on:click={handleRelease}>Release</span>
+    <button class="btn-release" on:click={handleRelease}>Release</button>
   </div>
   {#if showDetail}
     <div class="container-detail">
