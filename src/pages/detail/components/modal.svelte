@@ -22,13 +22,10 @@
   }
 
   function handleSave(){
-    let pokemons = []
-    myPokemon.subscribe(val => pokemons = val)
     let addNewObj = {
       basePoke: name,
       detail: currentDetail.detail,
-      newName,
-      id: pokemons.length + 1
+      newName
     }
     myPokemon.addPoke(addNewObj)
     textAlert = "Success!"

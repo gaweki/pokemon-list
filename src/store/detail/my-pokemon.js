@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import { handleSortingId } from "@/store/utils"
 
 const DEFAULT_DATA = [];
 
@@ -6,7 +7,7 @@ const { subscribe, set, update } = writable(localStorage.getItem("pokemon_my_lis
 
 const addPoke = newPoke => update(pokemon => {
     localStorage.setItem("pokemon_my_list", JSON.stringify([...pokemon, newPoke]))
-    return [...pokemon, newPoke];
+    return handleSortingId([...pokemon, newPoke]);
 });
 
 const deletePoke = idPoke => update(pokemon => {
