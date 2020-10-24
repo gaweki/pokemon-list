@@ -1,6 +1,6 @@
 Access on:
 
-[```https://pokemon-list-gaweki.netlify.app```](https://pokemon-list-gaweki.netlify.app){:target="_blank"}
+[```https://pokemon-list-gaweki.netlify.app```](https://pokemon-list-gaweki.netlify.app)
 
 Please check on mobile browser too if not works
 
